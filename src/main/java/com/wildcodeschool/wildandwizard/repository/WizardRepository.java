@@ -14,7 +14,7 @@ import com.wildcodeschool.wildandwizard.util.JdbcUtils;
 
 public class WizardRepository {
 
-    private final static String DB_URL = "jdbc:mysql://localhost:3306/spring_jdbc_quest?serverTimezone=GMT";
+    private final static String DB_URL = "jdbc:sqlserver://localhost\\sqlexpress;databaseName=spring_jdbc_quest";
     private final static String DB_USER = "h4rryp0tt3r";
     private final static String DB_PASSWORD = "Horcrux4life!";
 
@@ -27,6 +27,14 @@ public class WizardRepository {
             connection = DriverManager.getConnection(
                     DB_URL, DB_USER, DB_PASSWORD
             );
+//            connection = DriverManager.getConnection(
+//                    "jdbc:sqlserver://localhost\\sqlexpress;databaseName=spring_jdbc_quest;integratedSecurity=true"
+//                    );
+            
+            if (connection != null) {
+                System.out.println("Connected!");
+            }
+                
             statement = connection.prepareStatement(
                     "SELECT * FROM wizard;"
             );
@@ -82,7 +90,7 @@ public class WizardRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.closeResultSet(resultSet);
+             JdbcUtils.closeResultSet(resultSet);
             JdbcUtils.closeStatement(statement);
             JdbcUtils.closeConnection(connection);
         }

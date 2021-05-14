@@ -22,6 +22,7 @@ public class SchoolController {
     @GetMapping("/school")
     public String getById(Model model, @RequestParam Long id) {
 
+        System.out.println("id=" + id);
         model.addAttribute("school", repository.findById(id));
 
         return "school_get";
